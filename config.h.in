@@ -1,0 +1,2 @@
+#define LearnOpenGL_VERSION_MAJOR @LearnOpenGL_VERSION_MAJOR@
+#define LearnOpenGL_VERSION_MINOR @LearnOpenGL_VERSION_MINOR@
