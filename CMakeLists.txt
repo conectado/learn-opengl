@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 
+# For correct linting
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 project(LearnOpenGL VERSION 1.0)
 
 find_program(CLANG_C_COMPILER clang)
@@ -18,12 +21,18 @@ add_subdirectory(third-parties)
 list(APPEND EXTRA_LIBS GLAD)
 
 configure_file(config.h.in config.h)
-add_executable(LearnOpenGL main.cpp)
+add_executable(
+  LearnOpenGL 
+  error_handle.cpp
+  initializators.cpp
+  main.cpp 
+  setup_vao.cpp
+)
 
 find_program(CLANG_TIDY clang-tidy)
 if(CLANG_TIDY)
   message(STATUS "Found clang-tidy: will perform all checks")
-  SET(DO_CLANG_TIDY "${CLANG_TIDY}" "-checks=*")
+  SET(DO_CLANG_TIDY "${CLANG_TIDY}" "-checks=*,-fuchsia-default-arguments-calls,-modernize-use-trailing-return-type")
   set_target_properties(LearnOpenGL PROPERTIES CXX_CLANG_TIDY "${DO_CLANG_TIDY}")
 endif()
 
